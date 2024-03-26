@@ -39,7 +39,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestRegisterUser_RegistrationShoudlNotPermitEmptyInputSpaces()
+        public void TestRegisterUser_RegistrationShouldNotPermitEmptyInputSpaces()
         {
             // Arrange
             var userRegistration = new UserRegistrationService();
