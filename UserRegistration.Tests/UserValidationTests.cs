@@ -3,7 +3,13 @@ using System.Net.Mail;
 namespace UserRegistration.Tests
 {
     [TestClass]
-    public class UserRegistrationServiceTest
+
+    // Welcome to one of two test classes, they've been split to make it a little easier to read them all,
+    // and they test somewhat different things. In order to run the tests, you'll want to hit right click on the MSTest class project itself,
+    // the "UserRegistration.Tests" project, and hit "Run Tests." If you use Code instead of regular VS,
+    // you may want to run your test in the Terminal instead, or perhaps download a convenient addon for a testing UI.
+    // Once you have your tests run, just keep an eye on the test method names, they're pretty self-explanatory.
+    public class UserValidationTest
     {
         private UserRegistrationService userService;
 
@@ -11,19 +17,6 @@ namespace UserRegistration.Tests
         public void Setup()
         {
             userService = new UserRegistrationService();
-        }
-
-        // Test User Input Validation
-        [TestMethod]
-        public void TestRegistration()
-        {
-            UserRegistrationService userRegistration = new UserRegistrationService();
-
-            // Here we perform registration.
-            bool registrationResult = userRegistration.RegisterUser("testUser");
-
-            // Here we check if registration was successful.
-            Assert.IsTrue(registrationResult);
         }
 
         [TestMethod]
@@ -75,7 +68,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidUsername_UsernameThatDoesNotMatchRegExShouldBeFalse()
+        public void TestValidUsername_UsernameThatDoesNotMatchValidFormatShouldBeFalse()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -111,7 +104,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidPassword_PasswordShouldBeAtLeast8CharactersLongAndHaveAtLeastOneSpecialCharacterShouldBeTrue()
+        public void TestValidPassword_PasswordWithAtLeast8CharactersAndHavingAtLeastOneSpecialCharacterShouldBeTrue()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -123,7 +116,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidPassword_PasswordShouldNotBeBelow8CharactersShouldBeFalse()
+        public void TestValidPassword_PasswordBelow8CharactersShouldBeFalse()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -135,12 +128,12 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidPassword_PasswordShouldNotBeMissingASpecialCharacterShouldBeFalse()
+        public void TestValidPassword_PasswordMissingASpecialCharacterShouldBeFalse()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
-            // Performing validation with an invalid password.
-            bool validationResult = userRegistration.ValidatePassword("ValidPassword");
+            // Performing validation with an invalid password. It lacks a special character like !.
+            bool validationResult = userRegistration.ValidatePassword("InvalidPassword");
 
             // Checking if validation was successful.
             Assert.IsFalse(validationResult);
@@ -159,7 +152,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidEmail_EmailShouldFollowValidFormatShouldBeTrue()
+        public void TestValidEmail_EmailFollowingValidFormatShouldBeTrue()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -171,7 +164,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidEmail_EmailShouldNotUseAnInvalidFormatShouldBeFalse()
+        public void TestValidEmail_EmailUsingAnInvalidFormatShouldBeFalse()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -183,7 +176,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidEmail_EmailShouldNotBeEmptyShouldBeFalse()
+        public void TestValidEmail_EmailThatIsEmptyShouldBeFalse()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -195,7 +188,7 @@ namespace UserRegistration.Tests
         }
 
         [TestMethod]
-        public void TestValidEmail_EmailShouldNotBeCaseSensitiveShouldBeTrue()
+        public void TestValidEmail_EmailThatIsNotCaseSensitiveShouldBeTrue()
         {
             UserRegistrationService userRegistration = new UserRegistrationService();
 
@@ -205,5 +198,7 @@ namespace UserRegistration.Tests
             // Checking if validation was successful. Are you tired of reading this line yet?
             Assert.IsTrue(validationResult);
         }
+
+
     }
 }
