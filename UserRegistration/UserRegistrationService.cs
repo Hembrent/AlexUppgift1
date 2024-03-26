@@ -37,7 +37,7 @@ public class UserRegistrationService
 
     public string GetRegistrationConfirmationMessage(string username)
     {
-        return $"User '{username}' has been successfully registered."; // What it says on the tin, it's just a message.
+        return $"User '{username}' has been successfully registered."; // What it says on the tin, it's just a confirmation message.
     }
 
     public bool ValidateUsername(string username)
